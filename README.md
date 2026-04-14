@@ -32,18 +32,19 @@ Didesain dengan tema Slate Dark Mode yang responsif, ringan, dan aman.
 Langkah 1: Persiapan Struktur Direktori & File
 Buat semua file text dan direktori yang dibutuhkan oleh Web GUI untuk menyimpan data sumber URL dan IP.
 
+```
 Bash
 sudo mkdir -p /opt/static
 sudo touch /opt/whitelist_manual.txt
 sudo touch /opt/whitelist_sources.txt
 sudo touch /opt/rtbh_sources.txt
 sudo touch /etc/bird/rtbh-dynamic.conf
-
+```
 # Masukkan logo perusahaan (Opsional)
 # Upload file logo.png ke dalam folder /opt/static/
 Langkah 2: Konfigurasi BIRD 2 Utama
 Buka konfigurasi utama BIRD 2:
-
+```
 Bash
 sudo nano /etc/bird/bird.conf
 Ganti isinya dengan konfigurasi standar RTBH ini:
@@ -67,16 +68,17 @@ protocol static rtbh_list {
     ipv4;
     include "/etc/bird/rtbh-dynamic.conf"; 
 }
-
+```
 # File untuk membaca daftar Peer BGP yang bisa disinkronisasi dari Web GUI
 include "/etc/bird/peers.conf";
 Langkah 3: Script Updater Otomatis (Bash Engine)
 Buat script bash yang bertugas mengambil semua URL dari Web GUI, menyaring IP, mengecualikan IP whitelist, dan memasukkannya ke BIRD.
-
+```
 Bash
 sudo nano /opt/rtbh_updater.sh
 Isi dengan script agregator ini:
-
+```
+```
 Bash
 #!/bin/bash
 
@@ -115,31 +117,38 @@ grep -vFf /tmp/wl_sorted.txt /tmp/rtbh_sorted.txt | awk '/^[0-9]/ {
     if (ip !~ /\//) { ip = ip "/32" }
     print "route " ip " blackhole;"
 }' > "$BIRD_CONF"
-
+```
 # 4. Terapkan Rekonfigurasi BIRD
+```
 birdc configure > /dev/null
+```
 
 # 5. Bersihkan sampah
+```
 rm -f "$TEMP_RTBH" "$TEMP_WL" /tmp/wl_sorted.txt /tmp/rtbh_sorted.txt
+```
 Berikan hak akses eksekusi:
-
+```
 Bash
 sudo chmod +x /opt/rtbh_updater.sh
+```
 Langkah 4: Web GUI Dashboard (Python Flask)
 Buat file backend untuk tampilan dashboard visualnya.
-
+```
 Bash
 sudo nano /opt/rtbh_gui.py
 (Catatan: Paste seluruh kode Python Final Enterprise + Logo yang ada di percakapan sebelumnya ke dalam file ini).
-
+```
 Langkah 5: Menjalankan Sebagai Service Permanen (Systemd)
 Agar Web GUI berjalan otomatis di background dan tahan terhadap reboot:
-
+```
 Bash
 sudo nano /etc/systemd/system/rtbh-gui.service
+```
 Isi dengan:
 
 Ini, TOML
+```
 [Unit]
 Description=RTBH Monitor Web GUI
 After=network.target bird.service
@@ -155,20 +164,24 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 Aktifkan service-nya:
-
+```
+```
 Bash
 sudo systemctl daemon-reload
 sudo systemctl enable rtbh-gui
 sudo systemctl start rtbh-gui
+```
 Langkah 6: Automasi Sinkronisasi (Cronjob)
 Jadwalkan agar server otomatis mengunduh dan memperbarui daftar IP setiap 1 jam sekali.
-
+```
 Bash
 sudo crontab -e
+```
 Tambahkan baris ini di paling bawah:
-
+```
 Plaintext
 0 * * * * /bin/bash /opt/rtbh_updater.sh > /dev/null 2>&1
+```
 💻 Cara Mengakses Dashboard
 Buka browser dan masuk ke http://[IP-SERVER-UBUNTU]:8080
 
