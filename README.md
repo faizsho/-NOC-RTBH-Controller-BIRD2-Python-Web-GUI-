@@ -6,26 +6,23 @@ Sebuah sistem terpusat untuk memanajemen routing BGP Blackhole (RTBH) pada level
 Didesain dengan tema Slate Dark Mode yang responsif, ringan, dan aman.
 
 ✨ Fitur Utama
-Automated BGP Peering: Terhubung dengan Edge Router (seperti MikroTik, Cisco, dll) via iBGP/eBGP untuk mendistribusikan jutaan rute blackhole secara real-time.
+1. Automated BGP Peering: Terhubung dengan Edge Router (seperti MikroTik, Cisco, dll) via iBGP/eBGP untuk mendistribusikan jutaan rute blackhole secara real-time.
 
-Multiple Source Aggregation: Mampu menarik ribuan IP jahat dari berbagai link pihak ketiga secara bersamaan, membersihkan duplikat, dan mengonversinya ke format BIRD.
+2. Multiple Source Aggregation: Mampu menarik ribuan IP jahat dari berbagai link pihak ketiga secara bersamaan, membersihkan duplikat, dan mengonversinya ke format BIRD.
 
-Smart Whitelist Engine (Anti False-Positive): Melindungi IP krusial (DNS, Core Infra) agar tidak ikut terblokir, baik di-input manual maupun via remote URL.
+3. Smart Whitelist Engine (Anti False-Positive): Melindungi IP krusial (DNS, Core Infra) agar tidak ikut terblokir, baik di-input manual maupun via remote URL.
 
-Live BGP Monitoring: Memantau status peering secara real-time (Established/Down) langsung dari Web GUI.
+4. Live BGP Monitoring: Memantau status peering secara real-time (Established/Down) langsung dari Web GUI.
 
-IP/Subnet Lookup Engine: Fitur pencarian super cepat untuk mengecek apakah sebuah IP atau Subnet (misal /24) sedang berada di dalam daftar blokir BIRD.
+5. IP/Subnet Lookup Engine: Fitur pencarian super cepat untuk mengecek apakah sebuah IP atau Subnet (misal /24) sedang berada di dalam daftar blokir BIRD.
 
-Secure Auth Gateway: Dilengkapi halaman login terenkripsi untuk mencegah akses tidak sah.
+6. Secure Auth Gateway: Dilengkapi halaman login terenkripsi untuk mencegah akses tidak sah.
 
 🛠️ Prasyarat Sistem (Requirements)
-OS: Ubuntu 22.04 LTS (atau varian Debian modern lainnya)
-
-BIRD v2.x (sudo apt install bird2)
-
-Python 3 & pip (sudo apt install python3-pip)
-
-Flask (pip3 install flask)
+-> OS: Ubuntu 22.04 LTS (atau varian Debian modern lainnya)
+-> BIRD v2.x (sudo apt install bird2)
+-> Python 3 & pip (sudo apt install python3-pip)
+-> Flask (pip3 install flask)
 
 🚀 Panduan Instalasi Lengkap
 Langkah 1: Persiapan Struktur Direktori & File
