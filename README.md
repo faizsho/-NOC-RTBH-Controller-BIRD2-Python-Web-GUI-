@@ -19,9 +19,13 @@ Didesain dengan tema Slate Dark Mode yang responsif, ringan, dan aman.
 6. Secure Auth Gateway: Dilengkapi halaman login terenkripsi untuk mencegah akses tidak sah.
 
 🛠️ Prasyarat Sistem (Requirements)
+
 -> OS: Ubuntu 22.04 LTS (atau varian Debian modern lainnya)
+
 -> BIRD v2.x (sudo apt install bird2)
+
 -> Python 3 & pip (sudo apt install python3-pip)
+
 -> Flask (pip3 install flask)
 
 🚀 Panduan Instalasi Lengkap
